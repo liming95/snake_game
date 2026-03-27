@@ -14,9 +14,10 @@ BLOCK_SIZE = 20
 FPS = 10
 
 class SnakeGame:
-    def __init__(self, width=640, height=480):
+    def __init__(self, width=640, height=480, fps=10):
         self.width = width
         self.height = height
+        self.fps = fps
         self.display = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption('Snake Game')
         self.clock = pygame.time.Clock()
@@ -78,12 +79,41 @@ class SnakeGame:
         self._move()
         self._check_collision()
         self._draw()
-        self.clock.tick(FPS)
+        self.clock.tick(self.fps)
         return self.game_over
+
+def draw_menu(display, font):
+    display.fill(BLACK)
+    title = font.render("Snake Game", True, WHITE)
+    display.blit(title, (320 - title.get_width()//2, 100))
+    easy = font.render("1. Easy", True, GREEN)
+    display.blit(easy, (320 - easy.get_width()//2, 200))
+    medium = font.render("2. Medium", True, WHITE)
+    display.blit(medium, (320 - medium.get_width()//2, 250))
+    hard = font.render("3. Hard", True, RED)
+    display.blit(hard, (320 - hard.get_width()//2, 300))
+    pygame.display.update()
 
 def main():
     pygame.init()
-    game = SnakeGame()
+    display = pygame.display.set_mode((640, 480))
+    pygame.display.set_caption('Snake Game')
+    font = pygame.font.SysFont(None, 35)
+    difficulty = None
+    while difficulty is None:
+        draw_menu(display, font)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_1:
+                    difficulty = 5  # Easy
+                elif event.key == pygame.K_2:
+                    difficulty = 10  # Medium
+                elif event.key == pygame.K_3:
+                    difficulty = 15  # Hard
+    game = SnakeGame(fps=difficulty)
     while not game.game_over:
         game.play_step()
     pygame.quit()
