@@ -95,26 +95,21 @@ def draw_menu(display, font):
     pygame.display.update()
 
 def show_menu():
-    pygame.init()
-    display = pygame.display.set_mode((640, 480))
-    pygame.display.set_caption('Snake Game Menu')
-    font = pygame.font.SysFont(None, 35)
-    difficulty = None
-    while difficulty is None:
-        draw_menu(display, font)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
-            elif event.type == pygame.KEYDOWN:
-                if event.key in (pygame.K_1, pygame.K_KP1):
-                    difficulty = 5
-                elif event.key in (pygame.K_2, pygame.K_KP2):
-                    difficulty = 10
-                elif event.key in (pygame.K_3, pygame.K_KP3):
-                    difficulty = 15
-    pygame.quit()
-    return difficulty
+    print("Snake Game")
+    print("Select difficulty:")
+    print("1. Easy (slow speed)")
+    print("2. Medium (normal speed)")
+    print("3. Hard (fast speed)")
+    while True:
+        choice = input("Enter 1, 2, or 3: ").strip()
+        if choice == '1':
+            return 5
+        elif choice == '2':
+            return 10
+        elif choice == '3':
+            return 15
+        else:
+            print("Invalid choice, please enter 1, 2, or 3.")
 
 def main():
     difficulty = show_menu()

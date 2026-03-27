@@ -15,18 +15,20 @@ A simple Snake game implemented in Python using Pygame.
 
 Run `python snake_game.py`
 
+The game will prompt you in the terminal to select difficulty:
+- 1: Easy (slow speed)
+- 2: Medium (normal speed)
+- 3: Hard (fast speed)
+
+Enter 1, 2, or 3, then the game window will open.
+
 ## Gameplay
 
-- At startup, select difficulty:
-  - 1: Easy (slower speed)
-  - 2: Medium (default speed)
-  - 3: Hard (faster speed)
 - Use arrow keys to control the snake.
 - Eat the red food to grow and increase score.
 - Avoid hitting walls or yourself.
 
 ## Controls
 
-- Number keys 1-3: Select difficulty at start
-- Arrow keys: Move snake during game
+- Arrow keys: Move snake
 - Close window: Quit
