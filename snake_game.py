@@ -107,11 +107,11 @@ def show_menu():
                 pygame.quit()
                 exit()
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_1:
+                if event.key in (pygame.K_1, pygame.K_KP1):
                     difficulty = 5
-                elif event.key == pygame.K_2:
+                elif event.key in (pygame.K_2, pygame.K_KP2):
                     difficulty = 10
-                elif event.key == pygame.K_3:
+                elif event.key in (pygame.K_3, pygame.K_KP3):
                     difficulty = 15
     pygame.quit()
     return difficulty
