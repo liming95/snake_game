@@ -96,6 +96,7 @@ class SnakeGame:
 
     def run(self):
         running = True
+        last_keys = set()
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -114,15 +115,23 @@ class SnakeGame:
                         elif event.key == pygame.K_r:
                             self.reset()
             keys = pygame.key.get_pressed()
+            current_keys = set()
+            if keys[pygame.K_LEFT]: current_keys.add(pygame.K_LEFT)
+            if keys[pygame.K_RIGHT]: current_keys.add(pygame.K_RIGHT)
+            if keys[pygame.K_UP]: current_keys.add(pygame.K_UP)
+            if keys[pygame.K_DOWN]: current_keys.add(pygame.K_DOWN)
+            pressed_keys = current_keys - last_keys
             if not self.game_over and not self.paused:
-                if keys[pygame.K_LEFT] and self.direction != (BLOCK_SIZE, 0):
-                    self.next_direction = (-BLOCK_SIZE, 0)
-                elif keys[pygame.K_RIGHT] and self.direction != (-BLOCK_SIZE, 0):
-                    self.next_direction = (BLOCK_SIZE, 0)
-                elif keys[pygame.K_UP] and self.direction != (0, BLOCK_SIZE):
-                    self.next_direction = (0, -BLOCK_SIZE)
-                elif keys[pygame.K_DOWN] and self.direction != (0, -BLOCK_SIZE):
-                    self.next_direction = (0, BLOCK_SIZE)
+                for key in pressed_keys:
+                    if key == pygame.K_LEFT and self.direction != (BLOCK_SIZE, 0):
+                        self.next_direction = (-BLOCK_SIZE, 0)
+                    elif key == pygame.K_RIGHT and self.direction != (-BLOCK_SIZE, 0):
+                        self.next_direction = (BLOCK_SIZE, 0)
+                    elif key == pygame.K_UP and self.direction != (0, BLOCK_SIZE):
+                        self.next_direction = (0, -BLOCK_SIZE)
+                    elif key == pygame.K_DOWN and self.direction != (0, -BLOCK_SIZE):
+                        self.next_direction = (0, BLOCK_SIZE)
+            last_keys = current_keys
             if not self.game_over and not self.paused:
                 self._move()
                 self._check_collision()
