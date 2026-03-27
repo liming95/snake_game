@@ -94,10 +94,10 @@ def draw_menu(display, font):
     display.blit(hard, (320 - hard.get_width()//2, 300))
     pygame.display.update()
 
-def main():
+def show_menu():
     pygame.init()
     display = pygame.display.set_mode((640, 480))
-    pygame.display.set_caption('Snake Game')
+    pygame.display.set_caption('Snake Game Menu')
     font = pygame.font.SysFont(None, 35)
     difficulty = None
     while difficulty is None:
@@ -105,14 +105,20 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                return
+                exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_1:
-                    difficulty = 5  # Easy
+                    difficulty = 5
                 elif event.key == pygame.K_2:
-                    difficulty = 10  # Medium
+                    difficulty = 10
                 elif event.key == pygame.K_3:
-                    difficulty = 15  # Hard
+                    difficulty = 15
+    pygame.quit()
+    return difficulty
+
+def main():
+    difficulty = show_menu()
+    pygame.init()
     game = SnakeGame(fps=difficulty)
     while not game.game_over:
         game.play_step()
