@@ -30,5 +30,8 @@ Enter 1, 2, or 3 and press Enter, then the game window will open (it should appe
 
 ## Controls
 
-- Arrow keys: Move snake
-- Close window: Quit
+- Arrow keys: Move snake (make sure the game window has focus)
+- P: Pause/Resume
+- R: Reset (during game or game over)
+- ESC: Quit
+- Game Over: R to restart, Q to quit
