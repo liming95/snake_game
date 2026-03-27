@@ -1,7 +1,6 @@
 import pygame
 import random
 import sys
-import msvcrt
 
 # 颜色定义
 BLACK = (0, 0, 0)
@@ -112,17 +111,18 @@ class SnakeGame:
                     else:
                         if event.key == pygame.K_p:
                             self.paused = not self.paused
-                        elif not self.paused:
-                            if event.key == pygame.K_LEFT and self.direction != (BLOCK_SIZE, 0):
-                                self.next_direction = (-BLOCK_SIZE, 0)
-                            elif event.key == pygame.K_RIGHT and self.direction != (-BLOCK_SIZE, 0):
-                                self.next_direction = (BLOCK_SIZE, 0)
-                            elif event.key == pygame.K_UP and self.direction != (0, BLOCK_SIZE):
-                                self.next_direction = (0, -BLOCK_SIZE)
-                            elif event.key == pygame.K_DOWN and self.direction != (0, -BLOCK_SIZE):
-                                self.next_direction = (0, BLOCK_SIZE)
-                            elif event.key == pygame.K_r:
-                                self.reset()
+                        elif event.key == pygame.K_r:
+                            self.reset()
+            keys = pygame.key.get_pressed()
+            if not self.game_over and not self.paused:
+                if keys[pygame.K_LEFT] and self.direction != (BLOCK_SIZE, 0):
+                    self.next_direction = (-BLOCK_SIZE, 0)
+                elif keys[pygame.K_RIGHT] and self.direction != (-BLOCK_SIZE, 0):
+                    self.next_direction = (BLOCK_SIZE, 0)
+                elif keys[pygame.K_UP] and self.direction != (0, BLOCK_SIZE):
+                    self.next_direction = (0, -BLOCK_SIZE)
+                elif keys[pygame.K_DOWN] and self.direction != (0, -BLOCK_SIZE):
+                    self.next_direction = (0, BLOCK_SIZE)
             if not self.game_over and not self.paused:
                 self._move()
                 self._check_collision()
@@ -136,15 +136,16 @@ def show_menu():
     print("1. Easy (slow speed)")
     print("2. Medium (normal speed)")
     print("3. Hard (fast speed)")
-    print("Press 1, 2, or 3:")
     while True:
-        key = msvcrt.getch()
-        if key == b'1':
+        choice = input("Enter 1, 2, or 3: ").strip()
+        if choice == '1':
             return 5
-        elif key == b'2':
+        elif choice == '2':
             return 10
-        elif key == b'3':
+        elif choice == '3':
             return 15
+        else:
+            print("Invalid choice, please enter 1, 2, or 3.")
 
 def main():
     difficulty = show_menu()
