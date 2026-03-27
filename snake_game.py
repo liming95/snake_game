@@ -1,5 +1,6 @@
 import pygame
 import random
+import ctypes
 
 # Colors
 BLACK = (0, 0, 0)
@@ -20,6 +21,12 @@ class SnakeGame:
         self.fps = fps
         self.display = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption('Snake Game')
+        # Bring window to front on Windows
+        try:
+            hwnd = pygame.display.get_wm_info()['window']
+            ctypes.windll.user32.SetForegroundWindow(hwnd)
+        except:
+            pass  # Ignore if not on Windows or fails
         self.clock = pygame.time.Clock()
         self.reset()
 

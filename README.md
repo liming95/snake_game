@@ -20,7 +20,7 @@ The game will prompt you in the terminal to select difficulty:
 - 2: Medium (normal speed)
 - 3: Hard (fast speed)
 
-Enter 1, 2, or 3, then the game window will open.
+Enter 1, 2, or 3, then the game window will open (it should appear on top of other windows).
 
 ## Gameplay
 
